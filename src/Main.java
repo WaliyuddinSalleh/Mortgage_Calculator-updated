@@ -6,12 +6,13 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        final int MONTH_IN_YEARS = 12;
-        final byte PERCENT = 100;
+        int principal = 0;
+        float annualInterest = 0;
+        byte years = 0;
 
         Scanner scanner = new Scanner(System.in);
 
-        int principal;
+        ;
             while (true) {
                 System.out.print("Principal ($1K ~ $1M) :");
                 principal = scanner.nextInt();
@@ -23,20 +24,20 @@ public class Main {
 
 
             }
-        float annualInterestRate;
+        ;
             while (true){
                 System.out.print("Annual Interest Rate: ");
-                annualInterestRate = scanner.nextFloat();
+                annualInterest = scanner.nextFloat();
 
-                if (annualInterestRate > 0 && annualInterestRate <= 30)
+                if (annualInterest > 0 && annualInterest <= 30)
                     break;
 
                 System.out.println("Enter a value greater than 0 and less than or equal to 30");
             }
 
-        byte years;
+
             while (true){
-                System.out.println("period (years): ");
+                System.out.print("period (years): ");
                 years = scanner.nextByte();
                 if ( years >=1 &&  years <=35)
                     break;
@@ -46,13 +47,11 @@ public class Main {
             }
 
 
-        double monthlyInterestRate = annualInterestRate / PERCENT / MONTH_IN_YEARS;
-        int numberOfPayments = years * MONTH_IN_YEARS;
+       double mortgage =  calculateMortgage(principal, annualInterest, years);
 
 
-        double mortgage = principal
-                * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments))
-                / (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
+
+
 
 
         System.out.println("Mortgage: " + NumberFormat.getCurrencyInstance().format(mortgage));
@@ -60,7 +59,25 @@ public class Main {
 
         }
 
+    public static double calculateMortgage(
+            int principal,
+            float annualInterest,
+            byte years) {
 
+
+        final int MONTH_IN_YEARS = 12;
+        final byte PERCENT = 100;
+        float numberOfPayments = years * MONTH_IN_YEARS;
+        float monthlyInterestRate = annualInterest / PERCENT / MONTH_IN_YEARS;
+
+        double mortgage = principal
+                * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments))
+                / (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
+
+        return mortgage;
+
+
+    }
 
 
 
